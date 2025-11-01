@@ -86,7 +86,9 @@ fun_squid  () {
   service squid restart > /dev/null 2>&1
   [[ -e $var_squid ]] && {
   echo -e "$barra\n\033[1;32m $(source trans -b es:${id} "REMOVIENDO SQU1D")\n$barra"
+  # Try to remove both squid and squid3
   fun_bar "apt-get remove squid3 -y"
+  fun_bar "apt-get remove squid -y"
   service squid stop > /dev/null 2>&1
   service squid3 stop > /dev/null 2>&1
   echo -e "$barra\n\033[1;32m $(source trans -b pt:${id} "Procedimento Concluido")\n$barra"
@@ -118,7 +120,17 @@ unset PORT
 echo -e "$barra"
 echo -e " $(source trans -b pt:${id} "INSTALANDO SQU1D")"
 echo -e "$barra"
-fun_bar "apt-get install squid3 -y"
+
+# FIXED: Try installing squid (new package name) first, then squid3 as fallback
+if apt-cache show squid > /dev/null 2>&1; then
+    fun_bar "apt-get install squid -y"
+elif apt-cache show squid3 > /dev/null 2>&1; then
+    fun_bar "apt-get install squid3 -y"
+else
+    echo -e "\033[1;31m $(source trans -b pt:${id} "Nenhum pacote Squid encontrado")\033[0m"
+    return 1
+fi
+
 echo -e "$barra"
 echo -e " $(source trans -b pt:${id} "INICIANDO CONFIGURACAO")"
 echo -e "$barra"
@@ -280,6 +292,7 @@ for ufww in $(mportas|awk '{print $2}'); do
 ufw allow $ufww > /dev/null 2>&1
 done
 }
+
 
 fun_dropbear () {
  [[ -e /etc/default/dropbear ]] && {
