@@ -167,10 +167,36 @@ if [ "$pid_badvpn" = "" ]; then
     echo -e "${cor[5]} ${txt[122]}"
     echo -e "${cor[1]} =================================== ${cor[0]}"
     if [[ ! -e /bin/badvpn-udpgw ]]; then
-    cd $HOME
-    wget https://github.com/powermx/AMXADM/raw/master/Install/badvpn-udpgw -o /dev/null
-    mv -f $HOME/badvpn-udpgw /bin/badvpn-udpgw
-    chmod 777 /bin/badvpn-udpgw
+#!/bin/bash
+
+# Mise à jour du système et installation des dépendances
+apt update -y
+apt install -y git cmake build-essential
+
+# Téléchargement du code source
+git clone https://github.com/ambrop72/badvpn.git /root/badvpn
+
+# Création du répertoire de compilation
+mkdir -p /root/badvpn/badvpn-build
+cd /root/badvpn/badvpn-build
+
+# Configuration du build (uniquement badvpn-udpgw)
+cmake .. -DBUILD_NOTHING_BY_DEFAULT=1 -DBUILD_UDPGW=1
+wait
+
+# Compilation
+make
+wait
+
+# Copie du binaire vers /bin
+cp udpgw/badvpn-udpgw /bin/badvpn-udpgw
+
+# Attribution des permissions d’exécution
+chmod 755 /bin/badvpn-udpgw
+
+# Vérification
+echo "✅ Installation terminée :"
+ls -lh /bin/badvpn-udpgw
     fi
     screen -dmS screen /bin/badvpn-udpgw --listen-addr 127.0.0.1:7300 --max-clients 1000 --max-connections-for-client 10
     [[ "$(ps x | grep badvpn | grep -v grep | awk '{print $1}')" ]] && echo -e "${cor[4]} ${txt[123]}" || echo -e "${cor[4]} ${txt[284]}"
