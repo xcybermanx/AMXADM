@@ -66,7 +66,6 @@ chmod +x /bin/adm
 cd /etc/adm-lite
 touch /etc/adm-lite/index.html
 wget -i $HOME/list -o /dev/null
-wget -O trans https://raw.githubusercontent.com/xcybermanx/AMXADM/master/Module/michu -o /dev/null 2>&1
 echo -e "${color[5]} $(source trans -b pt:${id} "INSTALLING DEPENDENCIES")"
 echo -e "${color[3]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
 cd /etc/adm-lite
