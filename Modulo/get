@@ -37,7 +37,7 @@ class Logger:
 		
 
 class PasswordSet:
-    FILE_EXEMPLE = 'master=passwd123\n127.0.0.1:22=pwd321;321pawd\n1.23.45.67:443=pass123'
+    FILE_EXEMPLE = 'master=passwd123\n127.0.0.1:22=pwd321;321pawd\n1.99.0.67:443=pass123'
 
     def __init__(self, masterKey=None):
         self.masterKey = masterKey
