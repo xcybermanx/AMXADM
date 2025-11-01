@@ -1174,7 +1174,6 @@ echo -e "\033[1;36m $(source trans -b pt:${id} "Porta Interna:") ${portx}"
 echo -e "\033[1;36m $(source trans -b pt:${id} "Porta SSL:") ${SSLPORT}"
 echo -e "$barra"
 return 0
-    done
 echo -e "$barra"
 echo -e "\033[1;33m $(source trans -b pt:${id} "Instalando SSL")"
 echo -e "$barra"
