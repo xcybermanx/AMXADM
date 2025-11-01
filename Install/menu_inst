@@ -1101,21 +1101,79 @@ echo -e "$barra"
          read -p " Local-Port: " portx
          if [[ ! -z $portx ]]; then
              if [[ $(echo $portx|grep [0-9]) ]]; then
-                [[ $(mportas|grep $portx|head -1) ]] && break || echo -e "\033[1;31m $(source trans -b pt:${id} "Porta Invalida")"
+                # FIXED: Check if port is NOT in use (we want available ports)
+                [[ $(mportas|grep $portx|head -1) ]] && {
+                    echo -e "\033[1;31m $(source trans -b pt:${id} "Porta já em uso, escolha outra")\033[0m"
+                } || {
+                    break
+                }
+             else
+                echo -e "\033[1;31m $(source trans -b pt:${id} "Porta deve conter apenas números")\033[0m"
              fi
+         else
+             echo -e "\033[1;31m $(source trans -b pt:${id} "Porta não pode estar vazia")\033[0m"
          fi
          done
 echo -e "$barra"
-DPORT="$(mportas|grep $portx|awk '{print $2}'|head -1)"
-echo -e "\033[1;33m $(source trans -b pt:${id} "Agora Presizamos Saber Qual Porta o SSL, Vai Escutar")"
+
+# FIXED: Get the service name using the port
+DPORT_SERVICE=$(mportas|grep $portx|head -1)
+if [[ -n "$DPORT_SERVICE" ]]; then
+    DPORT="$(echo $DPORT_SERVICE | awk '{print $2}')"
+else
+    # If port is not in mportas, use the entered port directly
+    DPORT="$portx"
+fi
+
+echo -e "\033[1;33m $(source trans -b pt:${id} "Agora Precisamos Saber Qual Porta o SSL Vai Escutar")"
 echo -e "$barra"
     while true; do
     read -p " Listen-SSL: " SSLPORT
-    [[ $(mportas|grep $SSLPORT) ]] || break
-    echo -e "\033[1;33m $(source trans -b es:${id} "El puerto seleccionado ya se encuentra en uso")"
-    unset SSLPORT
-	echo -e "$barra"
-	return 0
+    if [[ ! -z $SSLPORT ]]; then
+        if [[ $(echo $SSLPORT|grep [0-9]) ]]; then
+            # FIXED: Check if SSL port is available (not in use)
+            [[ $(mportas|grep $SSLPORT) ]] && {
+                echo -e "\033[1;31m $(source trans -b es:${id} "El puerto seleccionado ya se encuentra en uso")\033[0m"
+            } || {
+                break
+            }
+        else
+            echo -e "\033[1;31m $(source trans -b pt:${id} "Porta deve conter apenas números")\033[0m"
+        fi
+    else
+        echo -e "\033[1;31m $(source trans -b pt:${id} "Porta não pode estar vazia")\033[0m"
+    fi
+    done
+echo -e "$barra"
+echo -e "\033[1;33m $(source trans -b pt:${id} "Instalando SSL")"
+echo -e "$barra"
+fun_bar "apt-get install stunnel4 -y"
+
+# Create stunnel directory if it doesn't exist
+mkdir -p /etc/stunnel
+
+echo -e "cert = /etc/stunnel/stunnel.pem\nclient = no\nsocket = a:SO_REUSEADDR=1\nsocket = l:TCP_NODELAY=1\nsocket = r:TCP_NODELAY=1\n\n[stunnel]\nconnect = 127.0.0.1:${portx}\naccept = ${SSLPORT}" > /etc/stunnel/stunnel.conf
+
+# Generate SSL certificate
+openssl genrsa -out key.pem 2048 > /dev/null 2>&1
+(echo br; echo br; echo uss; echo speed; echo adm; echo ultimate; echo @admultimate)|openssl req -new -x509 -key key.pem -out cert.pem -days 1095 > /dev/null 2>&1
+cat key.pem cert.pem >> /etc/stunnel/stunnel.pem
+
+# Clean up temporary files
+rm -f key.pem cert.pem
+
+# Enable and restart stunnel
+sed -i 's/ENABLED=0/ENABLED=1/g' /etc/default/stunnel4 > /dev/null 2>&1
+service stunnel4 restart > /dev/null 2>&1
+systemctl enable stunnel4 > /dev/null 2>&1
+
+echo -e "$barra"
+echo -e "\033[1;33m $(source trans -b pt:${id} "INSTALADO COM SUCESSO")"
+echo -e "\033[1;32m $(source trans -b pt:${id} "SSL Stunnel configurado:")"
+echo -e "\033[1;36m $(source trans -b pt:${id} "Porta Interna:") ${portx}"
+echo -e "\033[1;36m $(source trans -b pt:${id} "Porta SSL:") ${SSLPORT}"
+echo -e "$barra"
+return 0
     done
 echo -e "$barra"
 echo -e "\033[1;33m $(source trans -b pt:${id} "Instalando SSL")"
