@@ -29,29 +29,29 @@ done
 echo -e "\033[1;33m]\033[1;31m -\033[1;32m 100%\033[1;37m"
 }
 
-instalar_fun () {
-cd /etc/adm-lite && bash cabecalho --instalar
+install_fun () {
+cd /etc/adm-lite && bash header --install
 }
 
-elimined_fun () {
-text=$(source trans -b pt:${id} "Instalando")
-echo -e "${cor[2]} Update"
+eliminate_fun () {
+text=$(source trans -b pt:${id} "Installing")
+echo -e "${color[2]} Update"
 fun_bar 'apt-get install screen' 'apt-get install python'
-echo -e "${cor[2]} Upgrade"
+echo -e "${color[2]} Upgrade"
 fun_bar 'apt-get install lsof' 'apt-get install python3-pip'
-echo -e "${cor[2]} $text Lsof"
+echo -e "${color[2]} $text Lsof"
 fun_bar 'apt-get install python' 'apt-get install unzip'
-echo -e "${cor[2]} $text Python3"
+echo -e "${color[2]} $text Python3"
 fun_bar 'apt-get install zip' 'apt-get install apache2'
-echo -e "${cor[2]} $text Unzip"
+echo -e "${color[2]} $text Unzip"
 fun_bar 'apt-get install ufw'
-echo -e "${cor[2]} $text Screen"
+echo -e "${color[2]} $text Screen"
 fun_bar 'apt-get install figlet' 'apt-get install bc'
-echo -e "${cor[2]} $text Figlet"
+echo -e "${color[2]} $text Figlet"
 fun_bar 'apt-get install lynx' 'apt-get install curl'
 sed -i "s;Listen 80;Listen 81;g" /etc/apache2/ports.conf
 service apache2 restart > /dev/null 2>&1
-echo -e "${cor[1]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -e "${color[1]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
 }
 
 
@@ -65,57 +65,57 @@ chmod +x /bin/menu
 chmod +x /bin/adm
 cd /etc/adm-lite
 touch /etc/adm-lite/index.html
-wget -i $HOME/lista -o /dev/null
-wget -O trans https://raw.githubusercontent.com/xcybermanx/AMXADM/master/Modulo/michu -o /dev/null 2>&1
-echo -e "${cor[5]} $(source trans -b pt:${id} "INSTALANDO DEPENDENCIAS")"
-echo -e "${cor[3]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+wget -i $HOME/list -o /dev/null
+wget -O trans https://raw.githubusercontent.com/xcybermanx/AMXADM/master/Module/michu -o /dev/null 2>&1
+echo -e "${color[5]} $(source trans -b pt:${id} "INSTALLING DEPENDENCIES")"
+echo -e "${color[3]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
 cd /etc/adm-lite
 chmod +x ./*
-instalar_fun
+install_fun
 function_verify
-[[ -e $HOME/lista ]] && rm $HOME/lista
-echo -e "${cor[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
-echo -e "${cor[5]} $(source trans -b pt:${id} "PROCEDIMIENTO REALIZADO!")"
-echo -e "${cor[3]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
-echo -e "${cor[3]} |∆| ${cor[2]}$(source trans -b pt:${id} "AHORA CONFIGURE SU VPS CON EL MANUAL DE INSTALACION")"
-echo -e "${cor[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
-echo -e "${cor[3]} $(source trans -b pt:${id} "USE LOS COMANDOS"): menu, adm"
-echo -e "${cor[2]} $(source trans -b pt:${id} "BIENVENIDO A MICHU ADM!")"
-echo -e "${cor[1]}════════════❖•ೋ° 🐱 °ೋ•❖════════════════"
+[[ -e $HOME/list ]] && rm $HOME/list
+echo -e "${color[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -e "${color[5]} $(source trans -b pt:${id} "PROCEDURE COMPLETED!")"
+echo -e "${color[3]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -e "${color[3]} |∆| ${color[2]}$(source trans -b pt:${id} "NOW CONFIGURE YOUR VPS WITH THE INSTALLATION MANUAL")"
+echo -e "${color[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -e "${color[3]} $(source trans -b pt:${id} "USE THE COMMANDS"): menu, adm"
+echo -e "${color[2]} $(source trans -b pt:${id} "WELCOME TO MICHU ADM!")"
+echo -e "${color[1]}════════════❖•ೋ° 🐱 °ೋ•❖════════════════"
 echo -ne " \033[0m"
 }
 
 
 error_fun () {
-echo -e "${cor[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -e "${color[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
 echo -e "\033[1;31mYour apt-get Error!"
 echo -e "Reboot the System!"
 echo -e "Use Command:"
 echo -e "\033[1;36mdpkg --configure -a"
 echo -e "\033[1;31mVerify your Source.list"
-echo -e "For Update Source list use this comand"
+echo -e "For Update Source list use this command"
 echo -e "\033[1;36mwget https://raw.githubusercontent.com/xcybermanx/AMXADM/master/Install/apt-source.sh && chmod 777 ./* && ./apt-*"
-echo -e "${cor[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -e "${color[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
 echo -ne "\033[0m"
 exit 1
 }
 
 rm $(pwd)/$0
-cor[1]="\033[1;36m"
-cor[2]="\033[1;33m"
-cor[3]="\033[1;31m"
-cor[5]="\033[1;32m"
-cor[4]="\033[0m"
+color[1]="\033[1;36m"
+color[2]="\033[1;33m"
+color[3]="\033[1;31m"
+color[5]="\033[1;32m"
+color[4]="\033[0m"
 cd $HOME
 locale-gen en_US.UTF-8 > /dev/null 2>&1
 update-locale LANG=en_US.UTF-8 > /dev/null 2>&1
 apt-get install gawk -y > /dev/null 2>&1
 wget -O trans https://raw.githubusercontent.com/xcybermanx/AMXADM/master/Install/trans -o /dev/null 2>&1
 mv -f ./trans /bin/ && chmod 777 /bin/*
-echo -e "${cor[1]}════════════❖•ೋ° 🐱 °ೋ•❖════════════════"
-echo -e "${cor[2]}SELECCIONAR IDIOMA\n${cor[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸\n${cor[2]}[1]-PT-BR\n[2]-EN\n[3]-ES\n[4]-FR"
-echo -e "${cor[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
-echo -ne " OPCION: "; read lang
+echo -e "${color[1]}════════════❖•ೋ° 🐱 °ೋ•❖════════════════"
+echo -e "${color[2]}SELECT LANGUAGE\n${color[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸\n${color[2]}[1]-PT-BR\n[2]-EN\n[3]-ES\n[4]-FR"
+echo -e "${color[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -ne " OPTION: "; read lang
 case $lang in
 1)
 id="pt"
@@ -133,15 +133,15 @@ id="fr"
 id="es"
 ;;
 esac
-echo -e "${cor[1]}════════════❖•ೋ° 🐱 °ೋ•❖════════════════"
+echo -e "${color[1]}════════════❖•ೋ° 🐱 °ೋ•❖════════════════"
 echo -e ""
-echo -e "${cor[5]} $(source trans -b pt:${id} "")\n\033[1;37m MICHU🐱ADM "
-echo -e "${cor[5]} $(source trans -b pt:${id} "")\n\033[1;37m ANDROID MEXICO TEAM"
-echo -e "${cor[3]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
-echo -e "${cor[2]} $(source trans -b pt:${id} "INSTALANDO SISTEMA") ®"
-echo -e "${cor[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
-echo -e "${cor[3]} $(source trans -b pt:${id} "INICIANDO INSTALACION...")"
-echo -e "${cor[2]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
-echo -ne "${cor[4]}"
-wget -O lista https://raw.githubusercontent.com/xcybermanx/AMXADM/master/lista -o /dev/null
+echo -e "${color[5]} $(source trans -b pt:${id} "")\n\033[1;37m MICHU🐱ADM "
+echo -e "${color[5]} $(source trans -b pt:${id} "")\n\033[1;37m ANDROID MEXICO TEAM"
+echo -e "${color[3]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -e "${color[2]} $(source trans -b pt:${id} "INSTALLING SYSTEM") ®"
+echo -e "${color[5]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -e "${color[3]} $(source trans -b pt:${id} "STARTING INSTALLATION...")"
+echo -e "${color[2]}⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸⫸"
+echo -ne "${color[4]}"
+wget -O list https://raw.githubusercontent.com/xcybermanx/AMXADM/master/list -o /dev/null
 valid_fun
